@@ -1,0 +1,3 @@
+# dotrc
+
+My personal dotrcs
