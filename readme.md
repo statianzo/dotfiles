@@ -1,3 +1,3 @@
-# dotrc
+# dotfiles
 
-My personal dotrcs
+My personal dotfiles
