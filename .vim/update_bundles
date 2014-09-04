@@ -9,15 +9,10 @@ git_bundles = [
   "git://github.com/kien/ctrlp.vim.git",
   "git://github.com/pangloss/vim-javascript.git",
   "git://github.com/slim-template/vim-slim.git",
-  "git://github.com/groenewege/vim-less.git",
   "git://github.com/juvenn/mustache.vim.git",
-  "git://github.com/lukerandall/haskellmode-vim.git",
   "git://github.com/scrooloose/nerdtree.git",
-  "git://github.com/rosstimson/scala-vim-support.git",
   "git://github.com/scrooloose/syntastic.git",
   "git://github.com/honza/dockerfile.vim.git",
-  #"git://github.com/jpalardy/vim-slime.git",
-  #"git://github.com/vim-scripts/VimClojure.git",
 ]
 
 vim_org_scripts = [ ]
@@ -31,14 +26,26 @@ bundles_dir = File.join(File.dirname(__FILE__), "bundle")
 
 FileUtils.cd(bundles_dir)
 
-puts "Trashing everything (lookout!)"
-Dir["*"].each {|d| FileUtils.rm_rf d }
+expected_bundles = git_bundles.map{|b| File.basename(b, '.git')}
+existing_bundles = Dir["*"].each{|d| File.basename(d)}
 
-git_bundles.each do |url|
-  dir = url.split('/').last.sub(/\.git$/, '')
-  puts "  Unpacking #{url} into #{dir}"
-  `git clone #{url} #{dir}`
-  FileUtils.rm_rf(File.join(dir, ".git"))
+old_bundles = existing_bundles - expected_bundles
+
+old_bundles.each do |d|
+  puts "=====> Removing #{d}"
+  FileUtils.rm_rf d
+end
+
+git_bundles.zip(expected_bundles) do |url, dir|
+  if File.exists?(dir)
+    puts "=====> Updating #{dir}"
+    FileUtils.cd(dir) do
+      `git pull --ff-only`
+    end
+  else
+    puts "=====> Installing #{dir}"
+    `git clone --depth 1 #{url} #{dir}`
+  end
 end
 
 zip_files.each do |name, url|

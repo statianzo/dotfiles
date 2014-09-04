@@ -1,8 +1,8 @@
 set t_Co=16
 call pathogen#runtime_append_all_bundles()
 syntax on
-colorscheme default
-set background=dark
+colorscheme zellner
+set background=light
 filetype plugin indent on
 
 set nocompatible  " We don't want vi compatibility.
@@ -70,12 +70,17 @@ match OverLength /\%81v.\+/
 
 map <F4> :execute "Ack " . expand("<cword>")<Bar> cw<CR>
 map ,n :NERDTreeToggle<CR>
+nmap ,m :NERDTreeClose<CR>:NERDTreeFind<CR>
 
 au Bufenter *.hs compiler ghc
 au BufRead,BufNewFile *.jade setfiletype jade
 au BufRead,BufNewFile *.ng setfiletype mustache
 au BufRead,BufNewFile *.clj setfiletype clojure
 au BufRead,BufNewFile *.go setfiletype go
+
+set backupdir=$HOME/.cache/vim"
+set directory=$HOME/.cache/vim//"
+silent execute "!mkdir -p $HOME/.cache/vim"
 
 " VimClojure
 let vimclojure#HighlightBuiltins = 1
@@ -87,6 +92,7 @@ set wildignore +=*.swp
 set wildignore +=target
 set wildignore +=project
 set wildignore +=lib_managed
+set wildignore +=_site
 
 let g:ctrlp_custom_ignore = 'vendor\/'
 let g:ctrlp_extensions = ['tag']
@@ -112,3 +118,13 @@ endif
 
 let g:syntastic_scala_checkers=['fsc']
 let g:syntastic_scala_options='-Ystop-after:icode'
+let g:syntastic_coffee_checkers=['coffee']
+let g:syntastic_html_tidy_ignore_errors=[
+  \ 'trimming empty'
+  \]
+
+"au VimEnter * RainbowParenthesesActivate
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
+

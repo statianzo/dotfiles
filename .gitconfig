@@ -1,0 +1,18 @@
+[user]
+  name = Jason Staten
+  email = jstaten07@gmail.com
+	signingkey = 8EFD31FB
+[alias]
+  st = status -s
+  co = checkout
+  lg = log --pretty=format:'%Cred%h%x09%Cgreen%ad%x09%Cblue%<(8,trunc)%ce%x08%x08 %C(yellow)%d%Creset %s %C(green)%GS%Creset' --abbrev-commit --date=relative
+  cop = checkout @{-1}
+  com = checkout master
+  headless = !sh -c 'git symbolic-ref HEAD refs/heads/$0 && rm .git/index && git clean -fdx'
+  cm = commit -S
+
+[push]
+  default = tracking
+
+[color]
+  ui = true
