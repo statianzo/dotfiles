@@ -1,0 +1,88 @@
+snippet rsc
+	const ${1:`Filename()`} = (props) => (
+		<div>
+		</div>
+	);
+	export default $1;
+snippet rc
+	class ${1:`Filename()`} extends React.Component {
+		render() {
+			return (
+				<div>
+				</div>
+			);
+		}
+	}
+	export default $1;
+snippet af
+	(${1}) => ${2:null}
+snippet fn
+	(${1}) => {
+		${2}
+	}
+snippet cfn
+	const ${1:name} = (${2}) => {
+		${3}
+	};
+snippet efn
+	export const ${1:fn} = (${2}) => {
+		return ${3}
+	};
+snippet reducer
+	const initialState = () => ({
+	});
+
+	export default (state = initialState(), action) => {
+		switch (action.type) {
+			default:
+				return state;
+		}
+	};
+snippet it
+	it('${1}', () => {
+	});
+snippet describe
+	describe('${1}', () => {
+	});
+snippet beforeEach
+	beforeEach(() => {
+		${1}
+	});
+snippet dispatch
+	dispatch({
+		type: ${1},
+		payload: {
+			${2}
+		}
+	});
+snippet ctor
+	constructor() {
+		super(...arguments);
+		${1}
+	}
+snippet cwm
+	componentWillMount() {
+		${1}
+	}
+snippet cdm
+	componentDidMount() {
+		${1}
+	}
+snippet cwu
+	componentWillUnmount() {
+		${1}
+	}
+snippet cwrp
+	componentWillReceiveProps() {
+		${1}
+	}
+snippet icss
+	import './`Filename()`.css';
+snippet connect
+	connect((state, props) => ({
+		${1}
+	}), {
+	})();
+snippet bind
+	this.${1:method} = this.$1.bind(this);
+

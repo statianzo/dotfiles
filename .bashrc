@@ -1,21 +1,16 @@
-TERM=xterm-16color
-
-export EDITOR=vim
-export PATH=$HOME/bin:./vendor/bundle/bin:$GOPATH/bin:$PATH
-ps1prefix=
-[ -n "$DOCKER" ] && ps1prefix="docker:"
-PS1='[${ps1prefix}\W]\$ '
+export EDITOR=nvim
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.stack/programs/x86_64-osx/ghc-7.10.3/bin:/vendor/bundle/bin:./node_modules/.bin:$PATH
 
 set -o vi
 
-alias ls="ls --color"
+alias ls="ls -G"
 alias bex="bundle exec"
 alias birb="irb -r ./boot"
 alias venv="source .venv/bin/activate"
+alias vim=nvim
 
 if [ -f /usr/share/git/git-prompt.sh ]; then
   source /usr/share/git/git-prompt.sh
-  PS1='[${ps1prefix}\W]$(__git_ps1 "(%s)")\$ '
 fi
 
 function purge-docker {
@@ -26,3 +21,4 @@ function purge-docker {
 for f in $HOME/.bashrc.d/*; do
   . $f
 done
+export PS1='[\W]$(__git_ps1 "(%s)")\$ '

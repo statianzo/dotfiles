@@ -1,7 +1,7 @@
 [user]
   name = Jason Staten
-  email = jstaten07@gmail.com
-	signingkey = 8EFD31FB
+  email = jason.staten@domo.com
+	signingkey = 2B56175E
 [alias]
   st = status -s
   co = checkout
@@ -12,7 +12,12 @@
   cm = commit -S
 
 [push]
-  default = tracking
+  default = simple
 
 [color]
   ui = true
+
+[merge]
+  tool = nvimdiff
+[mergetool "nvimdiff"]
+  cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$BASE\" \"$REMOTE\" -c 'wincmd w' -c 'wincmd J'"
