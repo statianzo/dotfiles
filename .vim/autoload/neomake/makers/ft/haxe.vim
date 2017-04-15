@@ -3,11 +3,10 @@ function! neomake#makers#ft#haxe#EnabledMakers()
 endfunction
 
 function! neomake#makers#ft#haxe#haxe()
-    return {
-        \ 'exe': 'haxe',
-        \ 'args': ['%:t'],
-        \ 'cwd': '%:p:h',
-        \ 'append_file': 0,
-        \ 'errorformat': '%f:%l: characters %c-%n : %m'
-        \ }
+  return {
+      \ 'exe': 'haxe',
+      \ 'args': ['build.hxml'],
+      \ 'append_file': 0,
+      \ 'errorformat': '%f:%l: %m'
+      \ }
 endfunction

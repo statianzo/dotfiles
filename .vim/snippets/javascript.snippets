@@ -53,7 +53,7 @@ snippet dispatch
 		type: ${1},
 		payload: {
 			${2}
-		}
+		},
 	});
 snippet ctor
 	constructor() {
@@ -76,6 +76,14 @@ snippet cwrp
 	componentWillReceiveProps() {
 		${1}
 	}
+snippet cdu
+	componentDidUpdate() {
+		${1}
+	}
+snippet scu
+	shouldComponentUpdate() {
+		${1}
+	}
 snippet icss
 	import './`Filename()`.css';
 snippet connect
@@ -85,4 +93,25 @@ snippet connect
 	})();
 snippet bind
 	this.${1:method} = this.$1.bind(this);
-
+snippet pt
+	`Filename()`.propTypes = {
+		${1}
+	};
+snippet fm
+	<FormattedMessage
+		id='${1:`Filename()`__Field}'
+		description='${2:Greeting}'
+		defaultMessage='${3:Hello World}' />
+snippet reselect
+	const reselect${1:ById} = createSelector(
+		(state) => state.entities,
+		(entities) => (
+			memoize((id) => (
+				entities[id]
+			)
+		)
+	));
+	
+	export const select$1 = (state, entityId) => (
+		reselect$1(state)(entityId)
+	);

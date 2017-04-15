@@ -1,9 +1,8 @@
 call pathogen#runtime_append_all_bundles()
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set termguicolors
 syntax on
-colorscheme base16-eighties
-set background=dark
 filetype plugin indent on
+colorscheme base16-eighties
 
 set nocompatible  " We don't want vi compatibility.
 
@@ -85,8 +84,10 @@ set wildignore +=_site
 set wildignore +=node_modules
 set wildignore +=cache
 set wildignore +=tmp
+set wildignore +=resources
 
 set suffixesadd+=.js
+set path+=src/**
 
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = 'vendor\/'
@@ -102,14 +103,50 @@ let g:syntastic_html_tidy_ignore_errors=[
 "let g:syntastic_javascript_eslint_exec='eslint_d'
 
 let g:jsx_ext_required = 0
-let g:ackprg = 'ag --vimgrep'
+let g:ackprg = 'rg --vimgrep'
 
-let g:neomake_error_sign={'text': '❌', 'texthl': 'NeomakeErrorMsg'}
-let g:neomake_warning_sign={'text': '⚠️', 'texthl': 'NeomakeErrorMsg'}
-let g:neomake_javascript_enabled_makers = ['eslint_d', 'eslint', 'jshint']
-let g:neomake_jsx_enabled_makers = ['eslint_d', 'eslint']
+"let g:neomake_error_sign={'text': '❌', 'texthl': 'NeomakeErrorMsg'}
+"let g:neomake_warning_sign={'text': '⚠️', 'texthl': 'NeomakeErrorMsg'}
+let g:neomake_error_sign={'text': 'E', 'texthl': 'NeomakeErrorMsg'}
+let g:neomake_warning_sign={'text': 'W', 'texthl': 'NeomakeErrorMsg'}
+if executable('flow')
+  let g:neomake_javascript_enabled_makers = ['flow']
+  let g:neomake_jsx_enabled_makers = ['flow']
+elseif executable('eslint_d')
+  let g:neomake_javascript_enabled_makers = ['eslint_d']
+  let g:neomake_jsx_enabled_makers = ['eslint_d']
+elseif executable('eslint')
+  let g:neomake_javascript_enabled_makers = ['eslint']
+  let g:neomake_jsx_enabled_makers = ['eslint']
+elseif executable('jshint')
+  let g:neomake_javascript_enabled_makers = ['jshint']
+  let g:neomake_jsx_enabled_makers = ['jshint']
+endif
 
 set fillchars+=vert:\ 
-highlight VertSplit ctermfg=NONE ctermbg=NONE cterm=NONE guifg=NONE guibg=NONE
+highlight VertSplit ctermfg=0 ctermbg=0 guifg=0 guibg=0
 highlight link xmlEndTag xmlTag
 highlight LineNr ctermfg=0
+
+let g:clojure_syntax_keywords = {
+    \ 'clojureMacro': ["defproject", "deftest"],
+    \ }
+let g:clojure_fuzzy_indent_patterns = ['^with', '^def', '^let', '^async']
+
+au BufRead,BufNewFile bash-fc-* set filetype=sh
+au BufRead,BufNewFile COMMIT_EDITMSG setlocal spell
+
+function! GitBranchName()
+  exec ":r!git rev-parse --abbrev-ref HEAD"
+endfunction
+command! -nargs=0 GitBranchName call GitBranchName()
+  
+autocmd FileType javascript set formatprg=prettier\ --single-quote\ --trailing-comma\ es5\ --stdin"
+
+autocmd BufWritePre *.js Neoformat
+let g:neoformat_javascript_prettier = {
+  \ 'exe': 'prettier',
+  \ 'args': ['--single-quote', '--no-bracket-spacing', '--trailing-comma', 'es5', '--stdin'],
+  \ 'stdin': 1
+\ }
+let g:javascript_plugin_flow = 1
