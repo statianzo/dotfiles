@@ -11,7 +11,7 @@
   headless = !sh -c 'git symbolic-ref HEAD refs/heads/$0 && rm .git/index && git clean -fdx'
   pb = !sh -c 'git push -u origin $(git rev-parse --abbrev-ref HEAD)'
   cm = commit -S
-  wherewasi = !sh -c "for i in $$(seq 1 10); do git rev-parse --abbrev-ref @{-$i}; done"
+  recent = "for-each-ref --count=10 --sort=-committerdate refs/heads/ --format='%(color:green)%(refname:short)\t%(color:reset)%(subject)'"
 
 [push]
   default = simple
@@ -25,3 +25,5 @@
   cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$BASE\" \"$REMOTE\" -c 'wincmd w' -c 'wincmd J'"
 [commit]
 	verbose = true
+[diff]
+	compactionHeuristic = true
