@@ -91,6 +91,7 @@ set path+=src/**
 
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_custom_ignore = 'vendor\/'
+let g:ctrlp_max_files = ''
 
 "Shove selected lines into clipboard
 vmap Y :w !xclip<CR><CR>

@@ -1,5 +1,5 @@
 export EDITOR=nvim
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.stack/programs/x86_64-osx/ghc-7.10.3/bin:/vendor/bundle/bin:./node_modules/.bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.n/bin:/opt/homebrew/bin:/vendor/bundle/bin:./node_modules/.bin:$PATH
 
 set -o vi
 

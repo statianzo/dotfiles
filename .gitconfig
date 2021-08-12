@@ -27,3 +27,7 @@
 	verbose = true
 [diff]
 	compactionHeuristic = true
+[pull]
+	ff = only
+[init]
+	defaultBranch = main
