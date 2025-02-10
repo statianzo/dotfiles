@@ -20,6 +20,7 @@ git_bundles = [
   "git://github.com/tpope/vim-fireplace.git",
   "git://github.com/junegunn/rainbow_parentheses.vim.git",
   "git://github.com/sbdchd/neoformat",
+  "git://github.com/janet-lang/janet.vim"
 ]
 
 vim_org_scripts = [ ]

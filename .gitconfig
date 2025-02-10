@@ -12,6 +12,7 @@
   pb = !sh -c 'git push -u origin $(git rev-parse --abbrev-ref HEAD)'
   cm = commit -S
   recent = "for-each-ref --count=10 --sort=-committerdate refs/heads/ --format='%(color:green)%(refname:short)\t%(color:reset)%(subject)'"
+  graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
 
 [push]
   default = simple
@@ -31,3 +32,8 @@
 	ff = only
 [init]
 	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

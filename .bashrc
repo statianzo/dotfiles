@@ -1,5 +1,5 @@
 export EDITOR=nvim
-export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.n/bin:/opt/homebrew/bin:/vendor/bundle/bin:./node_modules/.bin:$PATH
+export PATH=$HOME/bin:$HOME/.local/bin:$HOME/.n/bin:$HOME/dev/go/bin:/opt/homebrew/bin:/vendor/bundle/bin:./node_modules/.bin:$PATH
 
 set -o vi
 
@@ -22,3 +22,4 @@ for f in $HOME/.bashrc.d/*; do
   . $f
 done
 export PS1='[\W]$(__git_ps1 "(%s)")\$ '
+. "$HOME/.cargo/env"
